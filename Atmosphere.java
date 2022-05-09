@@ -1,2 +1,2 @@
-public class Atmosphere {
+public class Atmosphere extends Environment {
 }

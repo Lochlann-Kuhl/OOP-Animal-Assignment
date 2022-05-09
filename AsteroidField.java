@@ -1,2 +1,2 @@
-public class AsteroidField {
+public class AsteroidField extends Environment {
 }

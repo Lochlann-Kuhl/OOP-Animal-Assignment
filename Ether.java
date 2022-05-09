@@ -1,2 +1,2 @@
-public class Ether {
+public class Ether extends Environment {
 }

@@ -1,2 +1,2 @@
-public class BlackHole {
+public class BlackHole extends Environment {
 }

@@ -1,2 +1,2 @@
-public class Nebula {
+public class Nebula extends Environment {
 }

@@ -1,2 +1,2 @@
-public class SpaceStation {
+public class SpaceStation extends Environment {
 }
