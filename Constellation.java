@@ -15,7 +15,7 @@ public class Constellation {
     public int Attack(int input) {
         return this.Atk = input;
     }
-    public int Duability(int input) {
+    public int Durability(int input) {
         return this.Dur = input;
     }
     public int Speed(int input) {
