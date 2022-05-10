@@ -1,22 +1,22 @@
 public class Constellation {
-    public int Atk;
-    public int Dur;
     public int Spd;
     public int Agl;
+    public int Dur;
+    public int Atk;
     public int Grv;
     public int Lit;
     public int Edr;
-    public int Attack(int input) {
-        return this.Atk = input;
-    }
-    public int Durability(int input) {
-        return this.Dur = input;
-    }
     public int Speed(int input) {
         return this.Spd = input;
     }
     public int Agility(int input) {
         return this.Agl = input;
+    }
+    public int Durability(int input) {
+        return this.Dur = input;
+    }
+    public int Attack(int input) {
+        return this.Atk = input;
     }
     public int Gravity(int input) {
         return this.Grv = input;
