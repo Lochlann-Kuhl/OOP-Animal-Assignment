@@ -1,2 +1,3 @@
-public class Astra extends Constellation{
+public class Astra extends Constellation {
+
 }
