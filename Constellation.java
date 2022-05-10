@@ -1,6 +1,4 @@
 public class Constellation {
-
-    public String goodname;
     public int Atk;
     public int Dur;
     public int Spd;
@@ -8,14 +6,10 @@ public class Constellation {
     public int Grv;
     public int Lit;
     public int Edr;
-
-    public Constellation(String name) {
-        this.goodname = name;
-    }
     public int Attack(int input) {
         return this.Atk = input;
     }
-    public int Duability(int input) {
+    public int Durability(int input) {
         return this.Dur = input;
     }
     public int Speed(int input) {
