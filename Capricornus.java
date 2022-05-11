@@ -3,7 +3,7 @@ public class Capricornus extends Constellation{
     public int Speed(int Spd) {
         return (-4 + super.Spd);
     }
-    public int Agility(int Agl) {
+    public int CapAgility(int Agl) {
         return (-2 + super.Agl);
     }
     public int Durability(int Dur) {

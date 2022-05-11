@@ -9,8 +9,9 @@ public class Constellation {
     public int Speed(int input) {
         return this.Spd = input;
     }
-    public int Agility(int input) {
-        return this.Agl = input;
+    public int Agility(int input2) {
+        this.Agl = input2;
+        return Agl;
     }
     public int Durability(int input) {
         return this.Dur = input;
