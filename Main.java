@@ -3,7 +3,7 @@ public class Main {
         int lad;
         int lad2 = 5;
         Capricornus tommy = new Capricornus() ;
-        lad = tommy.Agility(lad2);
+        lad = tommy.CapAgility(lad2);
         System.out.print(lad);
     }
 }
