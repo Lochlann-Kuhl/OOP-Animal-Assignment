@@ -1,31 +1,37 @@
 public class Constellation {
-    public int Spd;
+    public int _Spd;
     public int _Agl;
-    public int Dur;
-    public int Atk;
-    public int Grv;
-    public int Lit;
-    public int Edr;
-    public int Speed(int input) {
-        return this.Spd = input;
+    public int _Dur;
+    public int _Atk;
+    public int _Grv;
+    public int _Lit;
+    public int _Edr;
+    public int Speed(int Spd) {
+        this._Spd = Spd;
+        return _Spd;
     }
     public int Agility(int Agl) {
         this._Agl = Agl;
         return _Agl;
     }
-    public int Durability(int input) {
-        return this.Dur = input;
+    public int Durability(int Dur) {
+        this._Dur = Dur;
+        return _Dur;
     }
-    public int Attack(int input) {
-        return this.Atk = input;
+    public int Attack(int Atk) {
+        this._Atk = Atk;
+        return _Atk;
     }
-    public int Gravity(int input) {
-        return this.Grv = input;
+    public int Gravity(int Grv) {
+        this._Grv = Grv;
+        return _Grv;
     }
-    public int Light(int input) {
-        return this.Lit = input;
+    public int Light(int Lit) {
+        this._Lit = Lit;
+        return _Lit;
     }
-    public int Endurance(int input) {
-        return this.Edr = input;
+    public int Endurance(int Edr) {
+        this._Edr = Edr;
+        return _Edr;
     }
 }
