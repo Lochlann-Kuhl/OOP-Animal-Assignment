@@ -1,24 +1,30 @@
 public class Capricornus extends Constellation{
-
-    public int CapSpeed(int Spd) {
-        return super.Speed(Spd-2);
+    public int Speed(int Spd) {
+        int SpdMod = -4;
+        return super.Speed(Spd, SpdMod);
     }
-    public int CapAgility(int Agl) {
-        return super.Agility(Agl-2);
+    public int Agility(int Agl) {
+        int AglMod = -2;
+        return super.Agility(Agl, AglMod);
     }
-    public int CapDurability(int Dur) {
-        return super.Durability(Dur-2);
+    public int Durability(int Dur) {
+        int DurMod = -3;
+        return super.Durability(Dur, DurMod);
     }
-    public int CapAttack(int Atk) {
-        return super.Attack(Atk-2);
+    public int Attack(int Atk) {
+        int AtkMod = 0;
+        return super.Attack(Atk, AtkMod);
     }
-    public int CapGravity(int Grv) {
-        return super.Gravity(Grv-2);
+    public int Gravity(int Grv) {
+        int GrvMod = 1;
+        return super.Gravity(Grv, GrvMod);
     }
-    public int CapLight(int Lit) {
-        return super.Light(Lit-2);
+    public int Light(int Lit) {
+        int LitMod = 4;
+        return super.Light(Lit, LitMod);
     }
-    public int CapEndurance(int Edr) {
-        return super.Endurance(Edr-2);
+    public int Endurance(int Edr) {
+        int EdrMod = -3;
+        return super.Endurance(Edr, EdrMod);
     }
 }
