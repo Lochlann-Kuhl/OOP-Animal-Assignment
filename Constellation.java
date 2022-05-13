@@ -1,4 +1,4 @@
-public class Constellation {
+abstract class Constellation implements Defined_Constellation_Classes {
 
     public int _Speed(int Spd, int SpdMod) {
         return (Spd + SpdMod);

@@ -1,4 +1,4 @@
-public class Environment {
+public class Environment implements Defined_Environment_Classes{
     public double spdWeight() { return 1; }
 
     public double aglWeight() { return 1;}
