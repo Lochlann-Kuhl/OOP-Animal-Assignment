@@ -1,22 +1,17 @@
 import java.util.*;
 public class Main {
     public static void main(String[] args){
-    // testing --> to be deleted
-        int lad;
-        int lad2 = 5;
-        Capricornus tommy = new Capricornus() ;
-        lad = tommy.Agility(lad2);
-        System.out.println(lad);
-    // beginning of actual code
-        // create scanner
         Scanner scan = new Scanner(System.in);
-        // defining variables & arrays
         boolean playerCountChosen = false;
         boolean p1ChoiceValid = false;
         boolean p2ChoiceValid = false;
         int playerCount = 0;
-        String player1Choice;
-        String player2Choice;
+        // these variables will be chosen by the player and will determine their constellations
+        String player1Choice = "";
+        String player2Choice = "";
+        // based on the chosen constellation and the chosen stats, these arrays will contain the stats when it's time to BATTLE
+        int[] player1Stats = new int[7];
+        int[] player2Stats = new int[7];
         String[] constellationNames = {
                 "Aquila","Astra","Cancer","Canis Major","Capricornus","Leo","Lyra","Pisces","Scorpius"
         };
@@ -37,6 +32,7 @@ public class Main {
             }
         }
         // note: include some insult towards capricornus
+        // looping to make sure player 1 inserts an acceptable choice
         while (!p1ChoiceValid) {
             System.out.println("Player 1 Choice:");
             player1Choice = scan.nextLine();
@@ -45,7 +41,10 @@ public class Main {
                 System.out.println("That was not one of the options. Pick again.");
             }
         }
+        userStats(player1Stats,player1Choice);
+        // if there are two players, program will also scan for a second choice of being
         if (playerCount == 2) {
+            // looping to make sure that player 2 inserts an acceptable choice
             while (!p2ChoiceValid) {
                 System.out.println("Player 2 Choice:");
                 player2Choice = scan.nextLine();
@@ -55,6 +54,8 @@ public class Main {
                 }
             }
         }
+        userStats(player2Stats,player2Choice);
+
         System.out.print("\n \n \n");
     }
 
@@ -67,5 +68,91 @@ public class Main {
             }
         }
         return isValid;
+    }
+    // creating a method that calls
+    public static int[] userStats (int[] stats, String userChoice) {
+        if (userChoice.equalsIgnoreCase("Aquila")) {
+            Aquila player = new Aquila();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Astra")) {
+            Astra player = new Astra();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Cancer")) {
+            Cancer player = new Cancer();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Canis Major")) {
+            Canis_Major player = new Canis_Major();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Capricornus")) {
+            Capricornus player = new Capricornus();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Leo")) {
+            Leo player = new Leo();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Lyra")) {
+            Lyra player = new Lyra();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Pisces")) {
+            Pisces player = new Pisces();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        } else if (userChoice.equalsIgnoreCase("Scorpius")) {
+            Scorpius player = new Scorpius();
+            stats[0] = player.Speed(stats[0]);
+            stats[1] = player.Agility(stats[1]);
+            stats[2] = player.Durability(stats[2]);
+            stats[3] = player.Attack(stats[3]);
+            stats[4] = player.Gravity(stats[4]);
+            stats[5] = player.Light(stats[5]);
+            stats[6] = player.Endurance(stats[6]);
+        }
+        return stats;
     }
 }
