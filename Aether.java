@@ -1,5 +1,4 @@
 public class Aether extends Environment {
-
     public double spdWeight() { return 1; }
 
     public double aglWeight() { return 0.5;}
