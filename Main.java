@@ -30,7 +30,7 @@ public class Main {
                 System.out.print(constellationNames[i] + ", ");
             }
         }
-        // note: include some insult towards capricornus
+        // note: include some insult towards Capricornus
         // looping to make sure player 1 inserts an acceptable choice
         while (!p1ChoiceValid) {
             System.out.println("Player 1 Choice:");
@@ -63,18 +63,22 @@ public class Main {
                 "\n Now, to begin:");
         player1pool = userChoice(player1Stats,player1pool);
         if (playerCount == 2) {
-            player2pool = userChoice(player2Stats,player2pool);
-            System.out.println("Player 1, you have a pool of 10 points to add to your stats. " +
+            System.out.println("Player 2, you have a pool of 10 points to add to your stats. " +
                     "\n The stats are Speed, Agility, Durability, Attack, Gravity Control, Light, and Endurance. " +
                     "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
                     "\n You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:" +
                     "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
                     "\n When you run out of points or type 'end', you will be taken out of the stats selection section." +
                     "\n Now, to begin:");
+                    player2pool = userChoice(player2Stats,player2pool);
         }
+        // this is just some debugging
+        /*for (int i = 0; i<player1Stats.length; i++) {
+            System.out.print(player1Stats[i] + "\t");
+        }*/
+
         System.out.print("\n \n \n");
     }
-
     public static boolean characterValid (String[] constNames, String pC) {
         boolean isValid = false;
         for (String constName : constNames) {
@@ -86,7 +90,7 @@ public class Main {
         return isValid;
     }
     // creating a method that calls
-    public static int[] userStats (int[] stats, String userChoice) {
+    public static void userStats (int[] stats, String userChoice) {
         if (userChoice.equalsIgnoreCase("Aquila")) {
             Aquila player = new Aquila();
             stats[0] = player.Speed(stats[0]);
@@ -169,14 +173,13 @@ public class Main {
             stats[5] = player.Light(stats[5]);
             stats[6] = player.Endurance(stats[6]);
         }
-        return stats;
     }
     public static int userChoice(int[] upStats, int playerPool) {
         // defining the variables within userChoice
         String statChoice = "";
-        int statChange = 0;
-        boolean legStat = false;
-        boolean legChange = false;
+        int statChange;
+        boolean legStat;
+        boolean legChange;
         boolean poolGone = false;
         while (!poolGone) {
             legStat = false;
@@ -195,6 +198,7 @@ public class Main {
             while (!legChange) {
                 System.out.println("How many stats do you want to add to " + statChoice + "?");
                 statChange = scan.nextInt();
+                scan.nextLine();
                 if (playerPool < statChange) {
                     System.out.println("You do not have enough points in your pool (" + playerPool + ") to make that change. Please try again.");
                 } else {
