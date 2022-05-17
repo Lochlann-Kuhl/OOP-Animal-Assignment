@@ -61,7 +61,7 @@ public class Main {
                 "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
                 "\n When you run out of points or type 'end', you will be taken out of the stats selection section." +
                 "\n Now, to begin:");
-        player1pool = userChoice(player1Stats,player1pool);
+        userChoice(player1Stats,player1pool);
         if (playerCount == 2) {
             System.out.println("Player 2, you have a pool of 10 points to add to your stats. " +
                     "\n The stats are Speed, Agility, Durability, Attack, Gravity Control, Light, and Endurance. " +
@@ -70,7 +70,7 @@ public class Main {
                     "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
                     "\n When you run out of points or type 'end', you will be taken out of the stats selection section." +
                     "\n Now, to begin:");
-                    player2pool = userChoice(player2Stats,player2pool);
+                    userChoice(player2Stats,player2pool);
         }
         // this is just some debugging
         /*for (int i = 0; i<player1Stats.length; i++) {
@@ -174,7 +174,7 @@ public class Main {
             stats[6] = player.Endurance(stats[6]);
         }
     }
-    public static int userChoice(int[] upStats, int playerPool) {
+    public static void userChoice(int[] upStats, int playerPool) {
         // defining the variables within userChoice
         String statChoice = "";
         int statChange;
@@ -233,6 +233,5 @@ public class Main {
                 poolGone = true;
             }
         }
-        return playerPool;
     }
 }
