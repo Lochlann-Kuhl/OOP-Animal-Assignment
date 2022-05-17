@@ -7,7 +7,7 @@ public class TempMethod {
         double p2Wins = 0;
         int whoWon;
 
-        if (map.equals("Aether")) {
+        if (map.equalsIgnoreCase("Aether")) {
             Aether a = new Aether();
             WinWeight[0] = (a.aglWeight());
             WinWeight[1] = (a.spdWeight());
@@ -17,7 +17,7 @@ public class TempMethod {
             WinWeight[5] = (a.litWeight());
             WinWeight[6] = (a.edrWeight());
         }
-        else if (map.equals("AsteroidField")) {
+        else if (map.equalsIgnoreCase("AsteroidField")) {
             AsteroidField b = new AsteroidField();
             WinWeight[0] = (b.aglWeight());
             WinWeight[1] = (b.spdWeight());
@@ -27,52 +27,58 @@ public class TempMethod {
             WinWeight[5] = (b.litWeight());
             WinWeight[6] = (b.edrWeight());
         }
-        else if (map.equals("Atmosphere")) {
+        else if (map.equalsIgnoreCase("Atmosphere")) {
             Atmosphere c = new Atmosphere();
-            WinWeight[1] = (c.aglWeight());
-            WinWeight[2] = (c.spdWeight());
-            WinWeight[3] = (c.durWeight());
-            WinWeight[4] = (c.atkWeight());
-            WinWeight[5] = (c.grvWeight());
-            WinWeight[6] = (c.litWeight());
-            WinWeight[7] = (c.edrWeight());
+            WinWeight[0] = (c.aglWeight());
+            WinWeight[1] = (c.spdWeight());
+            WinWeight[2] = (c.durWeight());
+            WinWeight[3] = (c.atkWeight());
+            WinWeight[4] = (c.grvWeight());
+            WinWeight[5] = (c.litWeight());
+            WinWeight[6] = (c.edrWeight());
         }
-        else if (map.equals("BlackHole")) {
+        else if (map.equalsIgnoreCase("BlackHole")) {
             BlackHole d = new BlackHole();
-            WinWeight[1] = (d.aglWeight());
-            WinWeight[2] = (d.spdWeight());
-            WinWeight[3] = (d.durWeight());
-            WinWeight[4] = (d.atkWeight());
-            WinWeight[5] = (d.grvWeight());
-            WinWeight[6] = (d.litWeight());
-            WinWeight[7] = (d.edrWeight());
+            WinWeight[0] = (d.aglWeight());
+            WinWeight[1] = (d.spdWeight());
+            WinWeight[2] = (d.durWeight());
+            WinWeight[3] = (d.atkWeight());
+            WinWeight[4] = (d.grvWeight());
+            WinWeight[5] = (d.litWeight());
+            WinWeight[6] = (d.edrWeight());
         }
-        else if (map.equals("Nebula")) {
+        else if (map.equalsIgnoreCase("Nebula")) {
             Nebula e = new Nebula();
-            WinWeight[1] = (e.aglWeight());
-            WinWeight[2] = (e.spdWeight());
-            WinWeight[3] = (e.durWeight());
-            WinWeight[4] = (e.atkWeight());
-            WinWeight[5] = (e.grvWeight());
-            WinWeight[6] = (e.litWeight());
-            WinWeight[7] = (e.edrWeight());
+            WinWeight[0] = (e.aglWeight());
+            WinWeight[1] = (e.spdWeight());
+            WinWeight[2] = (e.durWeight());
+            WinWeight[3] = (e.atkWeight());
+            WinWeight[4] = (e.grvWeight());
+            WinWeight[5] = (e.litWeight());
+            WinWeight[6] = (e.edrWeight());
         }
-        else if (map.equals("SpaceStation")) {
+        else if (map.equalsIgnoreCase("SpaceStation")) {
             SpaceStation f = new SpaceStation();
-            WinWeight[1] = (f.aglWeight());
-            WinWeight[2] = (f.spdWeight());
-            WinWeight[3] = (f.durWeight());
-            WinWeight[4] = (f.atkWeight());
-            WinWeight[5] = (f.grvWeight());
-            WinWeight[6] = (f.litWeight());
-            WinWeight[7] = (f.edrWeight());
+            WinWeight[0] = (f.aglWeight());
+            WinWeight[1] = (f.spdWeight());
+            WinWeight[2] = (f.durWeight());
+            WinWeight[3] = (f.atkWeight());
+            WinWeight[4] = (f.grvWeight());
+            WinWeight[5] = (f.litWeight());
+            WinWeight[6] = (f.edrWeight());
         }
         for(int i = 1; i <=7; i++){
-            if (p1Stat[i] > p2Stat[i]){
-                p1Wins = p1Wins + (1 * WinWeight[i]);
+            if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] > 7){
+                p1Wins = p1Wins + (2 * WinWeight[i]);
             }
-            else if (p1Stat[i] < p2Stat[i]) {
-                p2Wins = p2Wins + (1 * WinWeight[i]);
+            else if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] < 7){
+                p1Wins = p1Wins + WinWeight[i];
+            }
+            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] > 7) {
+                p2Wins = p2Wins + (2 * WinWeight[i]);
+            }
+            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] < 7) {
+                p2Wins = p2Wins + WinWeight[i];
             }
         }
         if (p1Wins > p2Wins){
