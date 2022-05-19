@@ -94,7 +94,7 @@ public class Main {
         }
         return isValid;
     }
-    // creating a method that calls
+    // creating a method that calls the hidden stats from each constellation and applies them if necessary
     public static void userStats (int[] stats, String userChoice) {
         if (userChoice.equalsIgnoreCase("Aquila")) {
             Aquila player = new Aquila();
