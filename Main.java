@@ -241,83 +241,83 @@ public class Main {
         }
     }
     public static int compare(String map, int[] p1Stat, int [] p2Stat){
-        double[] WinWeight = new double[7];
+        double[] winWeight = new double[7];
         double p1Wins = 0;
         double p2Wins = 0;
         int whoWon;
 
         if (map.equalsIgnoreCase("Aether")) {
             Aether a = new Aether();
-            WinWeight[0] = (a.aglWeight());
-            WinWeight[1] = (a.spdWeight());
-            WinWeight[2] = (a.durWeight());
-            WinWeight[3] = (a.atkWeight());
-            WinWeight[4] = (a.grvWeight());
-            WinWeight[5] = (a.litWeight());
-            WinWeight[6] = (a.edrWeight());
+            winWeight[0] = (a.aglWeight());
+            winWeight[1] = (a.spdWeight());
+            winWeight[2] = (a.durWeight());
+            winWeight[3] = (a.atkWeight());
+            winWeight[4] = (a.grvWeight());
+            winWeight[5] = (a.litWeight());
+            winWeight[6] = (a.edrWeight());
         }
         else if (map.equalsIgnoreCase("AsteroidField")) {
             AsteroidField b = new AsteroidField();
-            WinWeight[0] = (b.aglWeight());
-            WinWeight[1] = (b.spdWeight());
-            WinWeight[2] = (b.durWeight());
-            WinWeight[3] = (b.atkWeight());
-            WinWeight[4] = (b.grvWeight());
-            WinWeight[5] = (b.litWeight());
-            WinWeight[6] = (b.edrWeight());
+            winWeight[0] = (b.aglWeight());
+            winWeight[1] = (b.spdWeight());
+            winWeight[2] = (b.durWeight());
+            winWeight[3] = (b.atkWeight());
+            winWeight[4] = (b.grvWeight());
+            winWeight[5] = (b.litWeight());
+            winWeight[6] = (b.edrWeight());
         }
         else if (map.equalsIgnoreCase("Atmosphere")) {
             Atmosphere c = new Atmosphere();
-            WinWeight[0] = (c.aglWeight());
-            WinWeight[1] = (c.spdWeight());
-            WinWeight[2] = (c.durWeight());
-            WinWeight[3] = (c.atkWeight());
-            WinWeight[4] = (c.grvWeight());
-            WinWeight[5] = (c.litWeight());
-            WinWeight[6] = (c.edrWeight());
+            winWeight[0] = (c.aglWeight());
+            winWeight[1] = (c.spdWeight());
+            winWeight[2] = (c.durWeight());
+            winWeight[3] = (c.atkWeight());
+            winWeight[4] = (c.grvWeight());
+            winWeight[5] = (c.litWeight());
+            winWeight[6] = (c.edrWeight());
         }
         else if (map.equalsIgnoreCase("BlackHole")) {
             BlackHole d = new BlackHole();
-            WinWeight[0] = (d.aglWeight());
-            WinWeight[1] = (d.spdWeight());
-            WinWeight[2] = (d.durWeight());
-            WinWeight[3] = (d.atkWeight());
-            WinWeight[4] = (d.grvWeight());
-            WinWeight[5] = (d.litWeight());
-            WinWeight[6] = (d.edrWeight());
+            winWeight[0] = (d.aglWeight());
+            winWeight[1] = (d.spdWeight());
+            winWeight[2] = (d.durWeight());
+            winWeight[3] = (d.atkWeight());
+            winWeight[4] = (d.grvWeight());
+            winWeight[5] = (d.litWeight());
+            winWeight[6] = (d.edrWeight());
         }
         else if (map.equalsIgnoreCase("Nebula")) {
             Nebula e = new Nebula();
-            WinWeight[0] = (e.aglWeight());
-            WinWeight[1] = (e.spdWeight());
-            WinWeight[2] = (e.durWeight());
-            WinWeight[3] = (e.atkWeight());
-            WinWeight[4] = (e.grvWeight());
-            WinWeight[5] = (e.litWeight());
-            WinWeight[6] = (e.edrWeight());
+            winWeight[0] = (e.aglWeight());
+            winWeight[1] = (e.spdWeight());
+            winWeight[2] = (e.durWeight());
+            winWeight[3] = (e.atkWeight());
+            winWeight[4] = (e.grvWeight());
+            winWeight[5] = (e.litWeight());
+            winWeight[6] = (e.edrWeight());
         }
         else if (map.equalsIgnoreCase("SpaceStation")) {
             SpaceStation f = new SpaceStation();
-            WinWeight[0] = (f.aglWeight());
-            WinWeight[1] = (f.spdWeight());
-            WinWeight[2] = (f.durWeight());
-            WinWeight[3] = (f.atkWeight());
-            WinWeight[4] = (f.grvWeight());
-            WinWeight[5] = (f.litWeight());
-            WinWeight[6] = (f.edrWeight());
+            winWeight[0] = (f.aglWeight());
+            winWeight[1] = (f.spdWeight());
+            winWeight[2] = (f.durWeight());
+            winWeight[3] = (f.atkWeight());
+            winWeight[4] = (f.grvWeight());
+            winWeight[5] = (f.litWeight());
+            winWeight[6] = (f.edrWeight());
         }
         for(int i = 1; i <=7; i++){
             if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] > 7){
-                p1Wins = p1Wins + (2 * WinWeight[i]);
+                p1Wins = p1Wins + (2 * winWeight[i]);
             }
             else if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] < 7){
-                p1Wins = p1Wins + WinWeight[i];
+                p1Wins = p1Wins + winWeight[i];
             }
             else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] > 7) {
-                p2Wins = p2Wins + (2 * WinWeight[i]);
+                p2Wins = p2Wins + (2 * winWeight[i]);
             }
             else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] < 7) {
-                p2Wins = p2Wins + WinWeight[i];
+                p2Wins = p2Wins + winWeight[i];
             }
         }
         if (p1Wins > p2Wins){
