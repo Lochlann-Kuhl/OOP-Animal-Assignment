@@ -247,7 +247,7 @@ public class Main {
         int whoWon;
 
         if (map.equalsIgnoreCase("Aether")) {
-            Aether a = new Aether();
+            Aether a = new Aether(); //creates an Aether environment called 'a' in order to use its winWeight
             winWeight[0] = (a.aglWeight());
             winWeight[1] = (a.spdWeight());
             winWeight[2] = (a.durWeight());
@@ -257,7 +257,7 @@ public class Main {
             winWeight[6] = (a.edrWeight());
         }
         else if (map.equalsIgnoreCase("AsteroidField")) {
-            AsteroidField b = new AsteroidField();
+            AsteroidField b = new AsteroidField(); //creates an AsteroidField environment called 'b' in order to use its winWeight
             winWeight[0] = (b.aglWeight());
             winWeight[1] = (b.spdWeight());
             winWeight[2] = (b.durWeight());
@@ -267,7 +267,7 @@ public class Main {
             winWeight[6] = (b.edrWeight());
         }
         else if (map.equalsIgnoreCase("Atmosphere")) {
-            Atmosphere c = new Atmosphere();
+            Atmosphere c = new Atmosphere(); //creates an Atmosphere environment named 'c' in order to use its winWeight
             winWeight[0] = (c.aglWeight());
             winWeight[1] = (c.spdWeight());
             winWeight[2] = (c.durWeight());
@@ -277,7 +277,7 @@ public class Main {
             winWeight[6] = (c.edrWeight());
         }
         else if (map.equalsIgnoreCase("BlackHole")) {
-            BlackHole d = new BlackHole();
+            BlackHole d = new BlackHole(); //creates a BlackHole environment named 'd' in order to use its winWeight
             winWeight[0] = (d.aglWeight());
             winWeight[1] = (d.spdWeight());
             winWeight[2] = (d.durWeight());
@@ -287,7 +287,7 @@ public class Main {
             winWeight[6] = (d.edrWeight());
         }
         else if (map.equalsIgnoreCase("Nebula")) {
-            Nebula e = new Nebula();
+            Nebula e = new Nebula(); //creates a Nebula environment named 'e' in order to use its winWeight
             winWeight[0] = (e.aglWeight());
             winWeight[1] = (e.spdWeight());
             winWeight[2] = (e.durWeight());
@@ -297,7 +297,7 @@ public class Main {
             winWeight[6] = (e.edrWeight());
         }
         else if (map.equalsIgnoreCase("SpaceStation")) {
-            SpaceStation f = new SpaceStation();
+            SpaceStation f = new SpaceStation(); //creates a SpaceStation environment named 'f' in order to use its winWeight
             winWeight[0] = (f.aglWeight());
             winWeight[1] = (f.spdWeight());
             winWeight[2] = (f.durWeight());
@@ -307,19 +307,21 @@ public class Main {
             winWeight[6] = (f.edrWeight());
         }
         for(int i = 1; i <=7; i++){
+            //if the difference in a stat between the two constellations is greater than 7 the amount a win in that stat is worth double that of when its 7 or less.
             if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] > 7){
                 p1Wins = p1Wins + (2 * winWeight[i]);
             }
-            else if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] < 7){
+            else if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] <= 7){
                 p1Wins = p1Wins + winWeight[i];
             }
             else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] > 7) {
                 p2Wins = p2Wins + (2 * winWeight[i]);
             }
-            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] < 7) {
+            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] <= 7) {
                 p2Wins = p2Wins + winWeight[i];
             }
         }
+        //Determines the overall winner of this competition based on the amount of stats each constellation won.
         if (p1Wins > p2Wins){
             whoWon = 1;
         }
