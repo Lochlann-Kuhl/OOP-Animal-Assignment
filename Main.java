@@ -55,6 +55,7 @@ public class Main {
             }
         }
         userStats(player2Stats,player2Choice);
+        // the following prints the instructions for the game
         System.out.println("Player 1, you have a pool of 10 points to add to your stats. " +
                 "\n The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance. " +
                 "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
@@ -64,6 +65,7 @@ public class Main {
                 "\n Now, to begin:");
         userChoice(player1Stats,player1pool);
         if (playerCount == 2) {
+            // the following prints the instructions for the game
             System.out.println("Player 2, you have a pool of 10 points to add to your stats. " +
                     "\n The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance. " +
                     "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
@@ -181,6 +183,7 @@ public class Main {
         // defining the variables within userChoice
         String statChoice = "";
         int statChange;
+        // 'leg' stands for legitimate
         boolean legStat;
         boolean legChange;
         boolean poolGone = false;
@@ -189,7 +192,7 @@ public class Main {
             legChange = false;
             // looping it to make sure that the user has input a legitimate stat
             while (!legStat) {
-                System.out.println("Which stat do you want to modify?");
+                System.out.println("Which stat do you want to modify? (please type full name)");
                 statChoice = scan.nextLine();
                 if (statChoice.equalsIgnoreCase("Speed") || statChoice.equalsIgnoreCase("Agility") || statChoice.equalsIgnoreCase("Durability") || statChoice.equals("Attack") || statChoice.equalsIgnoreCase("Gravity") || statChoice.equalsIgnoreCase("Light") || statChoice.equalsIgnoreCase("Endurance")) {
                     legStat = true;
