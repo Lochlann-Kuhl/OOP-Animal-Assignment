@@ -6,6 +6,7 @@ public class Main {
         boolean p1ChoiceValid = false; boolean p2ChoiceValid = false;
         int playerCount = 0;
         int player1pool = 10; int player2pool = 10;
+        String location = "Aether";
         // these variables will be chosen by the player and will determine their constellations
         String player1Choice = ""; String player2Choice = "";
         // based on the chosen constellation and the chosen stats, these arrays will contain the stats when it's time to BATTLE
@@ -55,7 +56,7 @@ public class Main {
         }
         userStats(player2Stats,player2Choice);
         System.out.println("Player 1, you have a pool of 10 points to add to your stats. " +
-                "\n The stats are Speed, Agility, Durability, Attack, Gravity Control, Light, and Endurance. " +
+                "\n The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance. " +
                 "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
                 "\n You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:" +
                 "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
@@ -64,7 +65,7 @@ public class Main {
         userChoice(player1Stats,player1pool);
         if (playerCount == 2) {
             System.out.println("Player 2, you have a pool of 10 points to add to your stats. " +
-                    "\n The stats are Speed, Agility, Durability, Attack, Gravity Control, Light, and Endurance. " +
+                    "\n The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance. " +
                     "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
                     "\n You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:" +
                     "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
@@ -78,6 +79,8 @@ public class Main {
         }*/
 
         System.out.print("\n \n \n");
+        int lad;
+        lad = compare(location, player1Stats, player2Stats);
     }
     public static boolean characterValid (String[] constNames, String pC) {
         boolean isValid = false;
@@ -233,5 +236,96 @@ public class Main {
                 poolGone = true;
             }
         }
+    }
+    public static int compare(String map, int[] p1Stat, int [] p2Stat){
+        double[] WinWeight = new double[7];
+        double p1Wins = 0;
+        double p2Wins = 0;
+        int whoWon;
+
+        if (map.equalsIgnoreCase("Aether")) {
+            Aether a = new Aether();
+            WinWeight[0] = (a.aglWeight());
+            WinWeight[1] = (a.spdWeight());
+            WinWeight[2] = (a.durWeight());
+            WinWeight[3] = (a.atkWeight());
+            WinWeight[4] = (a.grvWeight());
+            WinWeight[5] = (a.litWeight());
+            WinWeight[6] = (a.edrWeight());
+        }
+        else if (map.equalsIgnoreCase("AsteroidField")) {
+            AsteroidField b = new AsteroidField();
+            WinWeight[0] = (b.aglWeight());
+            WinWeight[1] = (b.spdWeight());
+            WinWeight[2] = (b.durWeight());
+            WinWeight[3] = (b.atkWeight());
+            WinWeight[4] = (b.grvWeight());
+            WinWeight[5] = (b.litWeight());
+            WinWeight[6] = (b.edrWeight());
+        }
+        else if (map.equalsIgnoreCase("Atmosphere")) {
+            Atmosphere c = new Atmosphere();
+            WinWeight[0] = (c.aglWeight());
+            WinWeight[1] = (c.spdWeight());
+            WinWeight[2] = (c.durWeight());
+            WinWeight[3] = (c.atkWeight());
+            WinWeight[4] = (c.grvWeight());
+            WinWeight[5] = (c.litWeight());
+            WinWeight[6] = (c.edrWeight());
+        }
+        else if (map.equalsIgnoreCase("BlackHole")) {
+            BlackHole d = new BlackHole();
+            WinWeight[0] = (d.aglWeight());
+            WinWeight[1] = (d.spdWeight());
+            WinWeight[2] = (d.durWeight());
+            WinWeight[3] = (d.atkWeight());
+            WinWeight[4] = (d.grvWeight());
+            WinWeight[5] = (d.litWeight());
+            WinWeight[6] = (d.edrWeight());
+        }
+        else if (map.equalsIgnoreCase("Nebula")) {
+            Nebula e = new Nebula();
+            WinWeight[0] = (e.aglWeight());
+            WinWeight[1] = (e.spdWeight());
+            WinWeight[2] = (e.durWeight());
+            WinWeight[3] = (e.atkWeight());
+            WinWeight[4] = (e.grvWeight());
+            WinWeight[5] = (e.litWeight());
+            WinWeight[6] = (e.edrWeight());
+        }
+        else if (map.equalsIgnoreCase("SpaceStation")) {
+            SpaceStation f = new SpaceStation();
+            WinWeight[0] = (f.aglWeight());
+            WinWeight[1] = (f.spdWeight());
+            WinWeight[2] = (f.durWeight());
+            WinWeight[3] = (f.atkWeight());
+            WinWeight[4] = (f.grvWeight());
+            WinWeight[5] = (f.litWeight());
+            WinWeight[6] = (f.edrWeight());
+        }
+        for(int i = 1; i <=7; i++){
+            if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] > 7){
+                p1Wins = p1Wins + (2 * WinWeight[i]);
+            }
+            else if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] < 7){
+                p1Wins = p1Wins + WinWeight[i];
+            }
+            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] > 7) {
+                p2Wins = p2Wins + (2 * WinWeight[i]);
+            }
+            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] < 7) {
+                p2Wins = p2Wins + WinWeight[i];
+            }
+        }
+        if (p1Wins > p2Wins){
+            whoWon = 1;
+        }
+        else if (p1Wins < p2Wins){
+            whoWon = 2;
+        }
+        else{
+            whoWon = 3;
+        }
+        return whoWon;
     }
 }
