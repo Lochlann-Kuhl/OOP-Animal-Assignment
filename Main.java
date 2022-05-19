@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.*;
 public class Main {
     public static Scanner scan = new Scanner(System.in);
@@ -6,15 +7,22 @@ public class Main {
         boolean p1ChoiceValid = false; boolean p2ChoiceValid = false;
         int playerCount = 0;
         int player1pool = 10; int player2pool = 10;
-        String location = "Aether";
+        int battle;
+        String location;
         // these variables will be chosen by the player and will determine their constellations
         String player1Choice = ""; String player2Choice = "";
-        // based on the chosen constellation and the chosen stats, these arrays will contain the stats when it's time to BATTLE
+        // based on the chosen constellation and the chosen stats, these arrays/arrayLists will contain the stats when it's time to BATTLE
         int[] player1Stats = new int[7];
         int[] player2Stats = new int[7];
         String[] constellationNames = {
                 "Aquila","Astra","Cancer","Canis Major","Capricornus","Leo","Lyra","Pisces","Scorpius"
         };
+            // this array is temporary
+        String[] tempEnv = {
+                "Nebula","Aether","BlackHole","Atmosphere","AsteroidField","SpaceStation"
+        };
+        ArrayList<String> environments = new ArrayList<>();
+        environments.addAll(Arrays.asList(tempEnv));
         while (!playerCountChosen) {
             System.out.println("Welcome Star Warrior(s). 1 or 2 Players?");
             playerCount = scan.nextInt();
@@ -75,14 +83,26 @@ public class Main {
                     "\n Now, to begin:");
                     userChoice(player2Stats,player2pool);
         }
-        // this is just some debugging
-        /*for (int i = 0; i<player1Stats.length; i++) {
-            System.out.print(player1Stats[i] + "\t");
-        }*/
 
+        for (int i = 0; i < 6; i++) {
+            System.out.println("Generating the environment...");
+            location = envGen(environments);
+            System.out.println("The current environment is " + location + "!");
+            System.out.println("Battling...");
+            battle = compare(location, player1Stats, player2Stats);
+            if (battle == 1) {
+                System.out.println("Player 1 Victory!");
+            } else if (battle == 2) {
+                if (playerCount == 2) {
+                    System.out.println("Player 2 Victory!");
+                } else if (playerCount == 1) {
+                    System.out.println("AI Victory!");
+                }
+            } else if (battle == 3) {
+                System.out.println("Tie! You both suck!");
+            }
+        }
         System.out.print("\n \n \n");
-        int lad;
-        lad = compare(location, player1Stats, player2Stats);
     }
     public static boolean characterValid (String[] constNames, String pC) {
         boolean isValid = false;
@@ -306,7 +326,7 @@ public class Main {
             winWeight[5] = (f.litWeight());
             winWeight[6] = (f.edrWeight());
         }
-        for(int i = 1; i <=7; i++){
+        for(int i = 0; i <=6; i++){
             //if the difference in a stat between the two constellations is greater than 7 the amount a win in that stat is worth double that of when its 7 or less.
             if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] > 7){
                 p1Wins = p1Wins + (2 * winWeight[i]);
@@ -332,5 +352,15 @@ public class Main {
             whoWon = 3;
         }
         return whoWon;
+    }
+    // randomly generates an environment from an arraylist
+    // removes that environment from the arraylist, so it cannot be repeated
+    public static String envGen (ArrayList<String> envList) {
+        String envSelect;
+        int iSelectEnv;
+        iSelectEnv = (int)(Math.random()*6);
+        envSelect = envList.get(iSelectEnv);
+        envList.remove(envSelect);
+        return envSelect;
     }
 }
