@@ -9,13 +9,14 @@ public class Main {
         int player1pool = 10; int player2pool = 10;
         int battle;
         String location;
+        String playerContinue = "";
         String aiChoice;
         // these variables will be chosen by the player and will determine their constellations
         String player1Choice = ""; String player2Choice = "";
         // based on the chosen constellation and the chosen stats, these arrays/arrayLists will contain the stats when it's time to BATTLE
         int[] player1Stats = new int[7];
         int[] player2Stats = new int[7];
-        int[] aiStats = new int[7];
+        int[] aiFinalStats = new int[7];
         String[] constellationNames = {
                 "Aquila","Astra","Cancer","Canis Major","Capricornus","Leo","Lyra","Pisces","Scorpius"
         };
@@ -86,11 +87,19 @@ public class Main {
                     "\n Now, to begin:");
                     userChoice(player2Stats,player2pool);
         }
-        while (!pContinue) {
-            aiChoice = aiWarrior(constellationNames,tempNames);
-            userStats(aiStats,aiChoice);
-            for (int i = 0; i < 7; i++) {
-                System.out.println(aiStats[i]);
+        while (pContinue) {
+            if (playerCount == 1) {
+                aiChoice = aiWarrior(constellationNames,tempNames);
+                userStats(aiFinalStats,aiChoice);
+                aiStats(aiFinalStats,1);
+                location = envGen(tempEnv);
+                battle = compare()
+            }
+
+            System.out.println("The battle is complete. If you wish to continue, type 'continue'. Type anything else to exit");
+            playerContinue = scan.nextLine();
+            if (!playerContinue.equalsIgnoreCase("continue")) {
+                pContinue = false;
             }
         }
         System.out.print("\n \n \n");
@@ -372,7 +381,7 @@ public class Main {
         System.out.println(nameChoice);
         return nameChoice;
     }
-    public static int[] aiStats (int levelNum){
+    public static int[] aiStats (int[] currentAIStats, int levelNum){
         int[] aiStats = new int[7];
         for(int i = 0; i<= 6; i++){
             aiStats[i] = (int)(Math.random()*3)+levelNum;
