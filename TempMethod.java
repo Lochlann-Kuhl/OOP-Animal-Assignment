@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Objects;
-
+/*
 public class TempMethod {
     public static int[] aiStats (ArrayList<String> envList) {
         int i =0;
@@ -12,3 +12,4 @@ public class TempMethod {
         }
     }
 }
+*/

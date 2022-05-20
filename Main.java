@@ -358,7 +358,7 @@ public class Main {
     public static String envGen (ArrayList<String> envList) {
         String envSelect;
         int iSelectEnv;
-        iSelectEnv = (int)(Math.random()*6);
+        iSelectEnv = (int)(Math.random()*envList.size());
         envSelect = envList.get(iSelectEnv);
         envList.remove(envSelect);
         return envSelect;
