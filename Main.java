@@ -9,6 +9,7 @@ public class Main {
         int player1pool = 10; int player2pool = 10;
         int battle;
         String location;
+        String aiChoice = "";
         // these variables will be chosen by the player and will determine their constellations
         String player1Choice = ""; String player2Choice = "";
         // based on the chosen constellation and the chosen stats, these arrays/arrayLists will contain the stats when it's time to BATTLE
@@ -21,7 +22,7 @@ public class Main {
         String[] tempEnv = {
                 "Nebula","Aether","BlackHole","Atmosphere","AsteroidField","SpaceStation"
         };
-        ArrayList<String>  tempNames = new ArrayList<>();
+        ArrayList<String> tempNames = new ArrayList<>();
         ArrayList<String> environments = new ArrayList<>();
         environments.addAll(Arrays.asList(tempEnv));
         while (!playerCountChosen) {
@@ -84,25 +85,24 @@ public class Main {
                     "\n Now, to begin:");
                     userChoice(player2Stats,player2pool);
         }
-
-        for (int i = 0; i < 6; i++) {
-            System.out.println("Generating the environment...");
-            location = envGen(environments);
-            System.out.println("The current environment is " + location + "!");
-            System.out.println("Battling...");
-            battle = compare(location, player1Stats, player2Stats);
-            if (battle == 1) {
-                System.out.println("Player 1 Victory!");
-            } else if (battle == 2) {
-                if (playerCount == 2) {
-                    System.out.println("Player 2 Victory!");
-                } else {
-                    System.out.println("AI Victory!");
-                }
-            } else if (battle == 3) {
-                System.out.println("Tie! You both suck!");
-            }
-        }
+//        for (int i = 0; i < 6; i++) {
+//            System.out.println("Generating the environment...");
+//            location = envGen(environments);
+//            System.out.println("The current environment is " + location + "!");
+//            System.out.println("Battling...");
+//            battle = compare(location, player1Stats, player2Stats);
+//            if (battle == 1) {
+//                System.out.println("Player 1 Victory!");
+//            } else if (battle == 2) {
+//                if (playerCount == 2) {
+//                    System.out.println("Player 2 Victory!");
+//                } else {
+//                    System.out.println("AI Victory!");
+//                }
+//            } else if (battle == 3) {
+//                System.out.println("Tie! You both suck!");
+//            }
+//        }
         System.out.print("\n \n \n");
     }
     public static boolean characterValid (String[] constNames, String pC) {
@@ -366,15 +366,25 @@ public class Main {
     }
     public static String aiWarrior (String[] availableNames, ArrayList<String> existingNames) {
         ArrayList<String> possibleNames = new ArrayList<>();
-        String nameChoice = "";
+        String nameChoice;
         int iNameChoice;
         for (int i =0; i< availableNames.length; i++) {
             possibleNames.add(availableNames[i]);
-            possibleNames.remove(existingNames.get(i));
+            if (existingNames.size() > i) {
+                possibleNames.remove(existingNames.get(i));
+            }
         }
         // generates a random number to be used as the position within possibleNames
         iNameChoice = (int)(Math.random()*possibleNames.size());
         nameChoice = possibleNames.get(iNameChoice);
+        System.out.println(nameChoice);
         return nameChoice;
+    }
+    public static int[] aiStats (int levelNum){
+        int[] aiStats = new int[7];
+        for(int i = 0; i<= 6; i++){
+            aiStats[i] = (int)(Math.random()*3)+levelNum;
+        }
+        return aiStats;
     }
 }
