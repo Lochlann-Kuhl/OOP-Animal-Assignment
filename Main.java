@@ -21,6 +21,7 @@ public class Main {
         String[] tempEnv = {
                 "Nebula","Aether","BlackHole","Atmosphere","AsteroidField","SpaceStation"
         };
+        ArrayList<String>  tempNames = new ArrayList<>();
         ArrayList<String> environments = new ArrayList<>();
         environments.addAll(Arrays.asList(tempEnv));
         while (!playerCountChosen) {
@@ -95,7 +96,7 @@ public class Main {
             } else if (battle == 2) {
                 if (playerCount == 2) {
                     System.out.println("Player 2 Victory!");
-                } else if (playerCount == 1) {
+                } else {
                     System.out.println("AI Victory!");
                 }
             } else if (battle == 3) {
@@ -362,5 +363,18 @@ public class Main {
         envSelect = envList.get(iSelectEnv);
         envList.remove(envSelect);
         return envSelect;
+    }
+    public static String aiWarrior (String[] availableNames, ArrayList<String> existingNames) {
+        ArrayList<String> possibleNames = new ArrayList<>();
+        String nameChoice = "";
+        int iNameChoice;
+        for (int i =0; i< availableNames.length; i++) {
+            possibleNames.add(availableNames[i]);
+            possibleNames.remove(existingNames.get(i));
+        }
+        // generates a random number to be used as the position within possibleNames
+        iNameChoice = (int)(Math.random()*possibleNames.size());
+        nameChoice = possibleNames.get(iNameChoice);
+        return nameChoice;
     }
 }
