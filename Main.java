@@ -4,17 +4,18 @@ public class Main {
     public static Scanner scan = new Scanner(System.in);
     public static void main(String[] args){
         boolean playerCountChosen = false;
-        boolean p1ChoiceValid = false; boolean p2ChoiceValid = false;
+        boolean p1ChoiceValid = false; boolean p2ChoiceValid = false; boolean pContinue = true;
         int playerCount = 0;
         int player1pool = 10; int player2pool = 10;
         int battle;
         String location;
-        String aiChoice = "";
+        String aiChoice;
         // these variables will be chosen by the player and will determine their constellations
         String player1Choice = ""; String player2Choice = "";
         // based on the chosen constellation and the chosen stats, these arrays/arrayLists will contain the stats when it's time to BATTLE
         int[] player1Stats = new int[7];
         int[] player2Stats = new int[7];
+        int[] aiStats = new int[7];
         String[] constellationNames = {
                 "Aquila","Astra","Cancer","Canis Major","Capricornus","Leo","Lyra","Pisces","Scorpius"
         };
@@ -85,24 +86,13 @@ public class Main {
                     "\n Now, to begin:");
                     userChoice(player2Stats,player2pool);
         }
-//        for (int i = 0; i < 6; i++) {
-//            System.out.println("Generating the environment...");
-//            location = envGen(environments);
-//            System.out.println("The current environment is " + location + "!");
-//            System.out.println("Battling...");
-//            battle = compare(location, player1Stats, player2Stats);
-//            if (battle == 1) {
-//                System.out.println("Player 1 Victory!");
-//            } else if (battle == 2) {
-//                if (playerCount == 2) {
-//                    System.out.println("Player 2 Victory!");
-//                } else {
-//                    System.out.println("AI Victory!");
-//                }
-//            } else if (battle == 3) {
-//                System.out.println("Tie! You both suck!");
-//            }
-//        }
+        while (!pContinue) {
+            aiChoice = aiWarrior(constellationNames,tempNames);
+            userStats(aiStats,aiChoice);
+            for (int i = 0; i < 7; i++) {
+                System.out.println(aiStats[i]);
+            }
+        }
         System.out.print("\n \n \n");
     }
     public static boolean characterValid (String[] constNames, String pC) {
@@ -223,11 +213,13 @@ public class Main {
             }
             // looping it to make sure the user has input a legitimate value
             while (!legChange) {
-                System.out.println("How many stats do you want to add to " + statChoice + "?");
+                System.out.println("How many stats do you want to add to " + statChoice + "? (no negatives)");
                 statChange = scan.nextInt();
                 scan.nextLine();
                 if (playerPool < statChange) {
                     System.out.println("You do not have enough points in your pool (" + playerPool + ") to make that change. Please try again.");
+                } else if (0 > statChange) {
+                    System.out.println("That value is a negative, and is therefore not an option. Please try again.");
                 } else {
                     playerPool -= statChange;
                     legChange = true;
