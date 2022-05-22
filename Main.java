@@ -90,15 +90,42 @@ public class Main {
         while (pContinue) {
             if (playerCount == 1) {
                 aiChoice = aiWarrior(constellationNames,tempNames);
+                System.out.println("Your AI opponent is " + aiChoice);
                 userStats(aiFinalStats,aiChoice);
                 aiStats(aiFinalStats,1);
-                location = envGen(tempEnv);
-                battle = compare()
+                System.out.println("Generating environment...");
+                location = envGen(environments);
+                System.out.println("Your current environment is " + location + ".");
+                System.out.println("Battling...");
+                battle = compare(location,player1Stats,aiFinalStats);
+                // this switch determines the print statement based off of the value of battle
+                switch (battle) {
+                    case 1 -> System.out.println("You win!");
+                    case 2 -> System.out.println("Sorry, the AI won.");
+                    case 3 -> System.out.println("Oh, you tied with the AI. Sucks.");
+                }
+            } else if (playerCount == 2) {
+                System.out.println("Generating environment...");
+                location = envGen(environments);
+                System.out.println("Your current environment is " + location + ".");
+                System.out.println("Battling...");
+                battle = compare(location,player1Stats,player2Stats);
+                // this switch determines the print statement based off of the value of battle
+                switch (battle) {
+                    case 1 -> System.out.println("Player 1 Wins!");
+                    case 2 -> System.out.println("Player 2 Wins!");
+                    case 3 -> System.out.println("You both tied with one another. Sucks to suck.");
+                }
             }
 
-            System.out.println("The battle is complete. If you wish to continue, type 'continue'. Type anything else to exit");
-            playerContinue = scan.nextLine();
-            if (!playerContinue.equalsIgnoreCase("continue")) {
+            if (environments.size() > 0) {
+                System.out.println("The battle is complete. If you wish to continue, type 'continue'. Type anything else to exit");
+                playerContinue = scan.nextLine();
+                if (!playerContinue.equalsIgnoreCase("continue")) {
+                    pContinue = false;
+                }
+            } else if (environments.size() <= 0) {
+                System.out.println("There are no more environments to battle in. Simulation complete.");
                 pContinue = false;
             }
         }
@@ -378,7 +405,6 @@ public class Main {
         // generates a random number to be used as the position within possibleNames
         iNameChoice = (int)(Math.random()*possibleNames.size());
         nameChoice = possibleNames.get(iNameChoice);
-        System.out.println(nameChoice);
         return nameChoice;
     }
     public static int[] aiStats (int[] currentAIStats, int levelNum){
