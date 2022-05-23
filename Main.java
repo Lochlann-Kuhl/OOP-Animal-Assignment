@@ -83,7 +83,7 @@ public class Main {
                     "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
                     "\n You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:" +
                     "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
-                    "\n When you run out of points or type 'end', you will be taken out of the stats selection section." +
+                    "\n When you run out of points, you will be taken out of the stats selection section." +
                     "\n Now, to begin:");
                     userChoice(player2Stats,player2pool);
         }
