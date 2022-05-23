@@ -4,14 +4,12 @@ public class Main {
     public static Scanner scan = new Scanner(System.in);
     public static void main(String[] args){
         boolean playerCountChosen = false;
-        boolean difficultyChosen = false;
         boolean p1ChoiceValid = false; boolean p2ChoiceValid = false; boolean pContinue = true;
         int playerCount = 0;
         int player1pool = 10; int player2pool = 10;
         int battle;
-        String difficulty = "";
         String location;
-        String playerContinue;
+        String playerContinue = "";
         String aiChoice;
         // these variables will be chosen by the player and will determine their constellations
         String player1Choice = ""; String player2Choice = "";
@@ -35,18 +33,6 @@ public class Main {
             scan.nextLine();
             if (playerCount == 1 || playerCount == 2) {
                 playerCountChosen = true;
-            }
-        }
-        if(playerCount == 1){
-            while(!difficultyChosen){
-                System.out.println("What difficulty would you like to experience? (Easy, Normal, Hard)");
-                difficulty = scan.nextLine();
-                if(difficulty.equalsIgnoreCase("Easy") || difficulty.equalsIgnoreCase("Normal") || difficulty.equalsIgnoreCase("Hard")){
-                    difficultyChosen = true;
-                }
-                else{
-                    System.out.println("That is not one of the difficulties.");
-                }
             }
         }
         System.out.println("Your choices include: ");
@@ -82,25 +68,23 @@ public class Main {
         }
         userStats(player2Stats,player2Choice);
         // the following prints the instructions for the game
-        System.out.println("""
-                Player 1, you have a pool of 10 points to add to your stats.\s
-                 The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance.\s
-                 As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation).
-                 You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:
-                 When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add.
-                 When you run out of points or type 'end', you will be taken out of the stats selection section.
-                 Now, to begin:""");
+        System.out.println("Player 1, you have a pool of 10 points to add to your stats. " +
+                "\n The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance. " +
+                "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
+                "\n You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:" +
+                "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
+                "\n When you run out of points or type 'end', you will be taken out of the stats selection section." +
+                "\n Now, to begin:");
         userChoice(player1Stats,player1pool);
         if (playerCount == 2) {
             // the following prints the instructions for the game
-            System.out.println("""
-                    Player 2, you have a pool of 10 points to add to your stats.\s
-                     The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance.\s
-                     As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation).
-                     You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:
-                     When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add.
-                     When you run out of points or type 'end', you will be taken out of the stats selection section.
-                     Now, to begin:""");
+            System.out.println("Player 2, you have a pool of 10 points to add to your stats. " +
+                    "\n The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance. " +
+                    "\n As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation)." +
+                    "\n You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:" +
+                    "\n When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add." +
+                    "\n When you run out of points or type 'end', you will be taken out of the stats selection section." +
+                    "\n Now, to begin:");
                     userChoice(player2Stats,player2pool);
         }
         while (pContinue) {
@@ -108,7 +92,7 @@ public class Main {
                 aiChoice = aiWarrior(constellationNames,tempNames);
                 System.out.println("Your AI opponent is " + aiChoice);
                 userStats(aiFinalStats,aiChoice);
-                aiStats(aiFinalStats, difficulty);
+                aiStats(aiFinalStats,1);
                 System.out.println("Generating environment...");
                 location = envGen(environments);
                 System.out.println("Your current environment is " + location + ".");
@@ -120,7 +104,7 @@ public class Main {
                     case 2 -> System.out.println("Sorry, the AI won.");
                     case 3 -> System.out.println("Oh, you tied with the AI. Sucks.");
                 }
-            } else {
+            } else if (playerCount == 2) {
                 System.out.println("Generating environment...");
                 location = envGen(environments);
                 System.out.println("Your current environment is " + location + ".");
@@ -140,7 +124,7 @@ public class Main {
                 if (!playerContinue.equalsIgnoreCase("continue")) {
                     pContinue = false;
                 }
-            } else {
+            } else if (environments.size() <= 0) {
                 System.out.println("There are no more environments to battle in. Simulation complete.");
                 pContinue = false;
             }
@@ -257,7 +241,7 @@ public class Main {
             while (!legStat) {
                 System.out.println("Which stat do you want to modify? (please type full name)");
                 statChoice = scan.nextLine();
-                if (statChoice.equalsIgnoreCase("Speed") || statChoice.equalsIgnoreCase("Agility") || statChoice.equalsIgnoreCase("Durability") || statChoice.equalsIgnoreCase("Attack") || statChoice.equalsIgnoreCase("Gravity") || statChoice.equalsIgnoreCase("Light") || statChoice.equalsIgnoreCase("Endurance")) {
+                if (statChoice.equalsIgnoreCase("Speed") || statChoice.equalsIgnoreCase("Agility") || statChoice.equalsIgnoreCase("Durability") || statChoice.equals("Attack") || statChoice.equalsIgnoreCase("Gravity") || statChoice.equalsIgnoreCase("Light") || statChoice.equalsIgnoreCase("Endurance")) {
                     legStat = true;
                 } else {
                     System.out.println("That is not one of the allowed stats (Speed, Agility, Durability, Attack, Gravity, Light, Endurance)");
@@ -372,197 +356,19 @@ public class Main {
             winWeight[6] = (f.edrWeight());
         }
         for(int i = 0; i <=6; i++){
-            if(i == 0){
-                System.out.println("\n" + "The battle of speed will now commence...");
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ignored)
-                {}
-            }
-            else if(i == 1){
-                System.out.println("\n" + "The battle of agility will now commence...");
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ignored)
-                {}
-            }
-            else if(i == 2){
-                System.out.println("\n" + "The battle of durability will now commence...");
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ignored)
-                {}
-            }
-            else if(i == 3){
-                System.out.println("\n" + "The battle of attack will now commence...");
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ignored)
-                {}
-            }
-            else if(i == 4){
-                System.out.println("\n" + "The battle of gravity will now commence...");
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ignored)
-                {}
-            }
-            else if(i == 5){
-                System.out.println("\n" + "The battle of light will now commence...");
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ignored)
-                {}
-            }
-            else{
-                System.out.println("\n" + "The battle of endurance will now commence...");
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ignored)
-                {}
-            }
             //if the difference in a stat between the two constellations is greater than 7 the amount a win in that stat is worth double that of when its 7 or less.
-            if (p1Stat[i] > p2Stat[i] && (p1Stat[i] - p2Stat[i]) > 7){
+            if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] > 7){
                 p1Wins = p1Wins + (2 * winWeight[i]);
-                if(i == 0){
-                    System.out.println("In terms of speed, player 1 is the victor with an overwhelming victory!");
-                }
-                else if(i == 1){
-                    System.out.println("In terms of agility, player 1 is the victor with an overwhelming victory!");
-                }
-                else if(i == 2){
-                    System.out.println("In terms of durability, player 1 is the victor with an overwhelming victory!");
-                }
-                else if(i == 3){
-                    System.out.println("In terms of attack, player 1 is the victor with an overwhelming victory!");
-                }
-                else if(i == 4){
-                    System.out.println("In terms of gravity ability, player 1 is the victor with an overwhelming victory!");
-                }
-                else if(i == 5){
-                    System.out.println("In terms of light ability, player 1 is the victor with an overwhelming victory!");
-                }
-                else{
-                    System.out.println("In terms of endurance, player 1 is the victor with an overwhelming victory!");
-                }
-
             }
-            else if (p1Stat[i] > p2Stat[i] && (p1Stat[i] - p2Stat[i]) <= 7){
+            else if (p1Stat[i] > p2Stat[i] && p1Stat[i] - p2Stat[i] <= 7){
                 p1Wins = p1Wins + winWeight[i];
-                if(i == 0){
-                    System.out.println("In terms of speed, player 1 has player 2 beat!");
-                }
-                else if(i == 1){
-                    System.out.println("In terms of agility, player 1 has player 2 beat!");
-                }
-                else if(i == 2){
-                    System.out.println("In terms of durability, player 1 has player 2 beat!");
-                }
-                else if(i == 3){
-                    System.out.println("In terms of attack, player 1 has player 2 beat!");
-                }
-                else if(i == 4){
-                    System.out.println("In terms of gravity ability, player 1 has player 2 beat!");
-                }
-                else if(i == 5){
-                    System.out.println("In terms of light ability, player 1 has player 2 beat!");
-                }
-                else{
-                    System.out.println("In terms of endurance, player 1 has player 2 beat!");
-                }
             }
-            else if (p1Stat[i] < p2Stat[i] && (p2Stat[i] - p1Stat[i]) > 7) {
+            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] > 7) {
                 p2Wins = p2Wins + (2 * winWeight[i]);
-                if(i == 0){
-                    System.out.println("In terms of speed, player 2 is the victor with an overwhelming victory!");
-                }
-                else if(i == 1){
-                    System.out.println("In terms of agility, player 2 is the victor with an overwhelming victory!");
-                }
-                else if(i == 2){
-                    System.out.println("In terms of durability, player 2 is the victor with an overwhelming victory!");
-                }
-                else if(i == 3){
-                    System.out.println("In terms of attack, player 2 is the victor with an overwhelming victory!");
-                }
-                else if(i == 4){
-                    System.out.println("In terms of gravity ability, player 2 is the victor with an overwhelming victory!");
-                }
-                else if(i == 5){
-                    System.out.println("In terms of light ability, player 2 is the victor with an overwhelming victory!");
-                }
-                else{
-                    System.out.println("In terms of endurance, player 2 is the victor with an overwhelming victory!");
-                }
             }
-            else if (p1Stat[i] < p2Stat[i] && (p2Stat[i] - p1Stat[i]) <= 7) {
+            else if (p1Stat[i] < p2Stat[i] && p2Stat[i] - p1Stat[i] <= 7) {
                 p2Wins = p2Wins + winWeight[i];
-                if(i == 0){
-                    System.out.println("In terms of speed, player 2 has player 1 beat!");
-                }
-                else if(i == 1){
-                    System.out.println("In terms of agility, player 2 has player 1 beat!");
-                }
-                else if(i == 2){
-                    System.out.println("In terms of durability, player 2 has player 1 beat!");
-                }
-                else if(i == 3){
-                    System.out.println("In terms of attack, player 2 has player 1 beat!");
-                }
-                else if(i == 4){
-                    System.out.println("In terms of gravity ability, player 2 has player 1 beat!");
-                }
-                else if(i == 5){
-                    System.out.println("In terms of light ability, player 2 has player 1 beat!");
-                }
-                else{
-                    System.out.println("In terms of endurance, player 2 has player 1 beat!");
-                }
             }
-            else if (p1Stat[i] == p2Stat[i]) {
-                p2Wins = p2Wins + winWeight[i];
-                if(i == 0){
-                    System.out.println("In terms of speed, both players are evenly matched!");
-                }
-                else if(i == 1){
-                    System.out.println("In terms of agility, both players are evenly matched!");
-                }
-                else if(i == 2){
-                    System.out.println("In terms of durability, both players are evenly matched!");
-                }
-                else if(i == 3){
-                    System.out.println("In terms of attack, both players are evenly matched!");
-                }
-                else if(i == 4){
-                    System.out.println("In terms of gravity ability, both players are evenly matched!");
-                }
-                else if(i == 5){
-                    System.out.println("In terms of light ability, both players are evenly matched!");
-                }
-                else{
-                    System.out.println("In terms of endurance, both players are evenly matched!");
-                }
-            }
-            try
-            {
-                Thread.sleep(2000);
-            }
-            catch(InterruptedException ignored)
-            {}
         }
         //Determines the overall winner of this competition based on the amount of stats each constellation won.
         if (p1Wins > p2Wins){
@@ -601,21 +407,11 @@ public class Main {
         nameChoice = possibleNames.get(iNameChoice);
         return nameChoice;
     }
-    public static void aiStats (int[] finalAiStats, String levelDif){
-        int levelNum = 0;
-        if(levelDif.equalsIgnoreCase("Easy")){
-            levelNum = 1;
-        }
-        else if(levelDif.equalsIgnoreCase("Normal")){
-            levelNum = 2;
-        }
-        else if(levelDif.equalsIgnoreCase("Hard")){
-            levelNum = 3;
-        }
+    public static int[] aiStats (int[] currentAIStats, int levelNum){
+        int[] aiStats = new int[7];
         for(int i = 0; i<= 6; i++){
-            for(int j = 0; j<=levelNum; j++){
-                finalAiStats[i] = finalAiStats[i] + (int)(Math.random()*3)-1;
-            }
+            aiStats[i] = (int)(Math.random()*3)+levelNum;
         }
+        return aiStats;
     }
 }
