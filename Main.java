@@ -2,29 +2,36 @@ import java.util.ArrayList;
 import java.util.*;
 public class Main {
     public static Scanner scan = new Scanner(System.in);
-    public static void main(String[] args){
+    public static void main(String[] args) {
         boolean playerCountChosen = false;
         boolean difficultyChosen = false;
-        boolean p1ChoiceValid = false; boolean p2ChoiceValid = false; boolean pContinue = true;
+        boolean p1ChoiceValid = false;
+        boolean p2ChoiceValid = false;
+        boolean pContinue = true;
+        boolean pDifficulty = true;
+        boolean pRestart = true;
+        boolean pDone = true;
         int playerCount = 0;
-        int player1pool = 10; int player2pool = 10;
+        int player1pool = 10;
+        int player2pool = 10;
         int battle;
         String difficulty = "";
         String location;
         String playerContinue;
         String aiChoice;
         // these variables will be chosen by the player and will determine their constellations
-        String player1Choice = ""; String player2Choice = "";
+        String player1Choice = "";
+        String player2Choice = "";
         // based on the chosen constellation and the chosen stats, these arrays/arrayLists will contain the stats when it's time to BATTLE
         int[] player1Stats = new int[7];
         int[] player2Stats = new int[7];
         int[] aiFinalStats = new int[7];
         String[] constellationNames = {
-                "Aquila","Astra","Cancer","Canis Major","Capricornus","Leo","Lyra","Pisces","Scorpius"
+                "Aquila", "Astra", "Cancer", "Canis Major", "Capricornus", "Leo", "Lyra", "Pisces", "Scorpius"
         };
-            // this array is temporary
+        // this array is temporary
         String[] tempEnv = {
-                "Nebula","Aether","BlackHole","Atmosphere","AsteroidField","SpaceStation"
+                "Nebula", "Aether", "BlackHole", "Atmosphere", "AsteroidField", "SpaceStation"
         };
         ArrayList<String> tempNames = new ArrayList<>();
         ArrayList<String> environments = new ArrayList<>();
@@ -37,113 +44,127 @@ public class Main {
                 playerCountChosen = true;
             }
         }
-        if(playerCount == 1){
-            while(!difficultyChosen){
-                System.out.println("What difficulty would you like to experience? (Easy, Normal, Hard)");
-                difficulty = scan.nextLine();
-                if(difficulty.equalsIgnoreCase("Easy") || difficulty.equalsIgnoreCase("Normal") || difficulty.equalsIgnoreCase("Hard")){
-                    difficultyChosen = true;
+        while(pDone) {
+            while (pRestart) {
+                System.out.println("Your choices include: ");
+                for (int i = 0; i < constellationNames.length; i++) {
+                    if (i == (constellationNames.length) - 1) {
+                        System.out.println("and " + constellationNames[i] + ".");
+                    } else {
+                        System.out.print(constellationNames[i] + ", ");
+                    }
                 }
-                else{
-                    System.out.println("That is not one of the difficulties.");
+                // note: include some insult towards Capricornus
+                // looping to make sure player 1 inserts an acceptable choice
+                while (!p1ChoiceValid) {
+                    System.out.println("Player 1 Choice:");
+                    player1Choice = scan.nextLine();
+                    p1ChoiceValid = characterValid(constellationNames, player1Choice);
+                    if (!p1ChoiceValid) {
+                        System.out.println("That was not one of the options. Pick again.");
+                    }
                 }
+                userStats(player1Stats, player1Choice);
+                // if there are two players, program will also scan for a second choice of being
+                if (playerCount == 2) {
+                    // looping to make sure that player 2 inserts an acceptable choice
+                    while (!p2ChoiceValid) {
+                        System.out.println("Player 2 Choice:");
+                        player2Choice = scan.nextLine();
+                        p2ChoiceValid = characterValid(constellationNames, player2Choice);
+                        if (!p2ChoiceValid) {
+                            System.out.println("That was not one of the options. Pick again.");
+                        }
+                    }
+                }
+                userStats(player2Stats, player2Choice);
+                // the following prints the instructions for the game
+                System.out.println("""
+                        Player 1, you have a pool of 10 points to add to your stats.\s
+                         The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance.\s
+                         As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation).
+                         You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:
+                         When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add.
+                         When you run out of points or type 'end', you will be taken out of the stats selection section.
+                         Now, to begin:""");
+                userChoice(player1Stats, player1pool);
+                if (playerCount == 2) {
+                    // the following prints the instructions for the game
+                    System.out.println("""
+                            Player 2, you have a pool of 10 points to add to your stats.\s
+                             The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance.\s
+                             As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation).
+                             You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:
+                             When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add.
+                             When you run out of points or type 'end', you will be taken out of the stats selection section.
+                             Now, to begin:""");
+                    userChoice(player2Stats, player2pool);
+                }
+                pRestart = false;
             }
-        }
-        System.out.println("Your choices include: ");
-        for (int i =0; i < constellationNames.length; i++) {
-            if (i == (constellationNames.length)-1) {
-                System.out.println("and " + constellationNames[i] + ".");
-            } else {
-                System.out.print(constellationNames[i] + ", ");
-            }
-        }
-        // note: include some insult towards Capricornus
-        // looping to make sure player 1 inserts an acceptable choice
-        while (!p1ChoiceValid) {
-            System.out.println("Player 1 Choice:");
-            player1Choice = scan.nextLine();
-            p1ChoiceValid = characterValid(constellationNames,player1Choice);
-            if (!p1ChoiceValid) {
-                System.out.println("That was not one of the options. Pick again.");
-            }
-        }
-        userStats(player1Stats,player1Choice);
-        // if there are two players, program will also scan for a second choice of being
-        if (playerCount == 2) {
-            // looping to make sure that player 2 inserts an acceptable choice
-            while (!p2ChoiceValid) {
-                System.out.println("Player 2 Choice:");
-                player2Choice = scan.nextLine();
-                p2ChoiceValid = characterValid(constellationNames,player2Choice);
-                if (!p2ChoiceValid) {
-                    System.out.println("That was not one of the options. Pick again.");
+            while (pDifficulty) {
+                if (playerCount == 1) {
+                    while (!difficultyChosen) {
+                        System.out.println("What difficulty would you like to experience? (Easy, Normal, Hard)");
+                        difficulty = scan.nextLine();
+                        if (difficulty.equalsIgnoreCase("Easy") || difficulty.equalsIgnoreCase("Normal") || difficulty.equalsIgnoreCase("Hard")) {
+                            difficultyChosen = true;
+                        } else {
+                            System.out.println("That is not one of the difficulties.");
+                        }
+                    }
                 }
+                pDifficulty = false;
             }
-        }
-        userStats(player2Stats,player2Choice);
-        // the following prints the instructions for the game
-        System.out.println("""
-                Player 1, you have a pool of 10 points to add to your stats.\s
-                 The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance.\s
-                 As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation).
-                 You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:
-                 When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add.
-                 When you run out of points or type 'end', you will be taken out of the stats selection section.
-                 Now, to begin:""");
-        userChoice(player1Stats,player1pool);
-        if (playerCount == 2) {
-            // the following prints the instructions for the game
-            System.out.println("""
-                    Player 2, you have a pool of 10 points to add to your stats.\s
-                     The stats are Speed, Agility, Durability, Attack, Gravity, Light, and Endurance.\s
-                     As far as you know, each of the stats is currently set to 0 (but there are secret stats for each constellation).
-                     You will not be allowed to subtract stats to gain back points, because if that was allowed then you could just get infinite points and that would be :skullemoji:
-                     When you want to add to a stat, first type the stat you want to modify, and after that has been processed type the points you want to add.
-                     When you run out of points or type 'end', you will be taken out of the stats selection section.
-                     Now, to begin:""");
-                    userChoice(player2Stats,player2pool);
-        }
-        while (pContinue) {
-            if (playerCount == 1) {
-                aiChoice = aiWarrior(constellationNames,tempNames);
-                System.out.println("Your AI opponent is " + aiChoice);
-                userStats(aiFinalStats,aiChoice);
-                aiStats(aiFinalStats,difficulty);
-                System.out.println("Generating environment...");
-                location = envGen(environments);
-                System.out.println("Your current environment is " + location + ".");
-                System.out.println("Battling...");
-                battle = compare(location,player1Stats,aiFinalStats);
-                // this switch determines the print statement based off of the value of battle
-                switch (battle) {
-                    case 1 -> System.out.println("You win!");
-                    case 2 -> System.out.println("Sorry, the AI won.");
-                    case 3 -> System.out.println("Oh, you tied with the AI. Sucks.");
+            while (pContinue) {
+                if (playerCount == 1) {
+                    aiChoice = aiWarrior(constellationNames, tempNames);
+                    System.out.println("Your AI opponent is " + aiChoice);
+                    userStats(aiFinalStats, aiChoice);
+                    aiStats(aiFinalStats, difficulty);
+                    System.out.println("Generating environment...");
+                    location = envGen(environments);
+                    System.out.println("Your current environment is " + location + ".");
+                    System.out.println("Battling...");
+                    battle = compare(location, player1Stats, aiFinalStats);
+                    // this switch determines the print statement based off of the value of battle
+                    switch (battle) {
+                        case 1 -> System.out.println("You win!");
+                        case 2 -> System.out.println("Sorry, the AI won.");
+                        case 3 -> System.out.println("Oh, you tied with the AI. Sucks.");
+                    }
+                } else {
+                    System.out.println("Generating environment...");
+                    location = envGen(environments);
+                    System.out.println("Your current environment is " + location + ".");
+                    System.out.println("Battling...");
+                    battle = compare(location, player1Stats, player2Stats);
+                    // this switch determines the print statement based off of the value of battle
+                    switch (battle) {
+                        case 1 -> System.out.println("Player 1 Wins!");
+                        case 2 -> System.out.println("Player 2 Wins!");
+                        case 3 -> System.out.println("You both tied with one another. Sucks to suck.");
+                    }
                 }
-            } else {
-                System.out.println("Generating environment...");
-                location = envGen(environments);
-                System.out.println("Your current environment is " + location + ".");
-                System.out.println("Battling...");
-                battle = compare(location,player1Stats,player2Stats);
-                // this switch determines the print statement based off of the value of battle
-                switch (battle) {
-                    case 1 -> System.out.println("Player 1 Wins!");
-                    case 2 -> System.out.println("Player 2 Wins!");
-                    case 3 -> System.out.println("You both tied with one another. Sucks to suck.");
-                }
-            }
-
-            if (environments.size() > 0) {
-                System.out.println("The battle is complete. If you wish to continue, type 'continue'. Type anything else to exit");
-                playerContinue = scan.nextLine();
-                if (!playerContinue.equalsIgnoreCase("continue")) {
-                    pContinue = false;
-                }
-            } else {
-                System.out.println("There are no more environments to battle in. Simulation complete.");
                 pContinue = false;
             }
+            System.out.println("The battle is complete. If you wish to continue, type 'continue'. Type anything else to exit");
+            playerContinue = scan.nextLine();
+            if (playerContinue.equalsIgnoreCase("continue")) {
+                pContinue = true;
+            } else if (playerContinue.equalsIgnoreCase("difficulty")) {
+                pContinue = true;
+                pDifficulty = true;
+            } else if (playerContinue.equalsIgnoreCase("restart")) {
+                pContinue = true;
+                pDifficulty = true;
+                pRestart = true;
+            } else {
+                pDone = false;
+            }
+            p1ChoiceValid = false;
+            p2ChoiceValid = false;
+            difficultyChosen = false;
         }
         System.out.print("\n \n \n");
     }
@@ -582,7 +603,6 @@ public class Main {
         int iSelectEnv;
         iSelectEnv = (int)(Math.random()*envList.size());
         envSelect = envList.get(iSelectEnv);
-        envList.remove(envSelect);
         return envSelect;
     }
     public static String aiWarrior (String[] availableNames, ArrayList<String> existingNames) {
