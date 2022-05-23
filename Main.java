@@ -28,7 +28,7 @@ public class Main {
         ArrayList<String> environments = new ArrayList<>();
         environments.addAll(Arrays.asList(tempEnv));
         while (!playerCountChosen) {
-            System.out.println("Welcome Star Warrior(s). 1 or 2 Players?");
+            System.out.println("Welcome Star Warrior(s). 1 or 2 Players? Please use actual numbers (no characters).");
             playerCount = scan.nextInt();
             scan.nextLine();
             if (playerCount == 1 || playerCount == 2) {
