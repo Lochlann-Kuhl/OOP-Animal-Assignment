@@ -36,16 +36,17 @@ public class Main {
         ArrayList<String> tempNames = new ArrayList<>();
         ArrayList<String> environments = new ArrayList<>();
         environments.addAll(Arrays.asList(tempEnv));
-        while (!playerCountChosen) {
-            System.out.println("Welcome Star Warrior(s). 1 or 2 Players? Please use actual numbers (no characters).");
-            playerCount = scan.nextInt();
-            scan.nextLine();
-            if (playerCount == 1 || playerCount == 2) {
-                playerCountChosen = true;
-            }
-        }
         while(pDone) {
             while (pRestart) {
+                while (!playerCountChosen) {
+                    System.out.println("Welcome Star Warrior(s). 1 or 2 Players? (Actual numbers please).");
+                    playerCount = scan.nextInt();
+                    scan.nextLine();
+                    if (playerCount == 1 || playerCount == 2) {
+                        playerCountChosen = true;
+                    }
+                }
+
                 System.out.println("Your choices include: ");
                 for (int i = 0; i < constellationNames.length; i++) {
                     if (i == (constellationNames.length) - 1) {
@@ -54,7 +55,6 @@ public class Main {
                         System.out.print(constellationNames[i] + ", ");
                     }
                 }
-                // note: include some insult towards Capricornus
                 // looping to make sure player 1 inserts an acceptable choice
                 while (!p1ChoiceValid) {
                     System.out.println("Player 1 Choice:");
@@ -63,6 +63,15 @@ public class Main {
                     if (!p1ChoiceValid) {
                         System.out.println("That was not one of the options. Pick again.");
                     }
+                    if(player1Choice.equalsIgnoreCase("Capricornus")){
+                        System.out.println("Oh, bad choice...");
+                    }
+                    try
+                    {
+                        Thread.sleep(1500);
+                    }
+                    catch(InterruptedException ignored)
+                    {}
                 }
                 userStats(player1Stats, player1Choice);
                 // if there are two players, program will also scan for a second choice of being
@@ -75,6 +84,15 @@ public class Main {
                         if (!p2ChoiceValid) {
                             System.out.println("That was not one of the options. Pick again.");
                         }
+                        if(player2Choice.equalsIgnoreCase("Capricornus")){
+                            System.out.println("Oh, bad choice...");
+                        }
+                        try
+                        {
+                            Thread.sleep(1500);
+                        }
+                        catch(InterruptedException ignored)
+                        {}
                     }
                 }
                 userStats(player2Stats, player2Choice);
@@ -102,6 +120,7 @@ public class Main {
                 }
                 pRestart = false;
             }
+            //Determines what difficulty the player would like to be challenged by
             while (pDifficulty) {
                 if (playerCount == 1) {
                     while (!difficultyChosen) {
@@ -120,9 +139,24 @@ public class Main {
                 if (playerCount == 1) {
                     aiChoice = aiWarrior(constellationNames, tempNames);
                     System.out.println("Your AI opponent is " + aiChoice);
+                    if(aiChoice.equalsIgnoreCase("Capricornus")){
+                        System.out.println("Lucky you, you get an easy opponent.");
+                    }
+                    try
+                    {
+                        Thread.sleep(1500);
+                    }
+                    catch(InterruptedException ignored)
+                    {}
                     userStats(aiFinalStats, aiChoice);
                     aiStats(aiFinalStats, difficulty);
                     System.out.println("Generating environment...");
+                    try
+                    {
+                        Thread.sleep(1500);
+                    }
+                    catch(InterruptedException ignored)
+                    {}
                     location = envGen(environments);
                     System.out.println("Your current environment is " + location + ".");
                     System.out.println("Battling...");
@@ -135,6 +169,12 @@ public class Main {
                     }
                 } else {
                     System.out.println("Generating environment...");
+                    try
+                    {
+                        Thread.sleep(1500);
+                    }
+                    catch(InterruptedException ignored)
+                    {}
                     location = envGen(environments);
                     System.out.println("Your current environment is " + location + ".");
                     System.out.println("Battling...");
@@ -148,23 +188,50 @@ public class Main {
                 }
                 pContinue = false;
             }
-            System.out.println("The battle is complete. If you wish to continue, type 'continue'. Type anything else to exit");
-            playerContinue = scan.nextLine();
-            if (playerContinue.equalsIgnoreCase("continue")) {
-                pContinue = true;
-            } else if (playerContinue.equalsIgnoreCase("difficulty")) {
-                pContinue = true;
-                pDifficulty = true;
-            } else if (playerContinue.equalsIgnoreCase("restart")) {
-                pContinue = true;
-                pDifficulty = true;
-                pRestart = true;
-            } else {
-                pDone = false;
+            if(playerCount == 1) {
+                System.out.println("""
+                        The battle is complete.
+                        If you wish to try again with your current stats and settings type 'Continue'.
+                        If If you wish to change the difficulty of the battle, type 'Difficulty'.
+                        If you wish to go back to the beginning of the game, type 'Restart'.
+                        And if you wish to stop playing the game, type anything else.""");
+
+                playerContinue = scan.nextLine();
+                if (playerContinue.equalsIgnoreCase("continue")) {
+                    pContinue = true;
+                } else if (playerContinue.equalsIgnoreCase("difficulty")) {
+                    pContinue = true;
+                    pDifficulty = true;
+                } else if (playerContinue.equalsIgnoreCase("restart")) {
+                    pContinue = true;
+                    pDifficulty = true;
+                    pRestart = true;
+                } else {
+                    pDone = false;
+                }
+                p1ChoiceValid = false;
+                difficultyChosen = false;
             }
-            p1ChoiceValid = false;
-            p2ChoiceValid = false;
-            difficultyChosen = false;
+            else{
+                System.out.println("""
+                        The battle is complete.
+                        If you wish to try again with your current stats and settings type 'Continue'.
+                        If you wish to go back to the beginning of the game, type 'Restart'.
+                        And if you wish to stop playing the game, type anything else.""");
+
+                playerContinue = scan.nextLine();
+                if (playerContinue.equalsIgnoreCase("continue")) {
+                    pContinue = true;
+                } else if (playerContinue.equalsIgnoreCase("restart")) {
+                    pContinue = true;
+                    pRestart = true;
+                } else {
+                    pDone = false;
+                }
+                p1ChoiceValid = false;
+                p2ChoiceValid = false;
+            }
+            playerCountChosen = false;
         }
         System.out.print("\n \n \n");
     }
@@ -286,7 +353,7 @@ public class Main {
             }
             // looping it to make sure the user has input a legitimate value
             while (!legChange) {
-                System.out.println("How many stats do you want to add to " + statChoice + "? (no negatives)");
+                System.out.println("How many points do you want to add to " + statChoice + "? (Actual numbers please, also no negatives)");
                 statChange = scan.nextInt();
                 scan.nextLine();
                 if (playerPool < statChange) {
@@ -326,6 +393,7 @@ public class Main {
             }
         }
     }
+    //Compares the stats of the two players / player and AI to determine a winner
     public static int compare(String map, int[] p1Stat, int [] p2Stat){
         double[] winWeight = new double[7];
         double p1Wins = 0;
@@ -455,6 +523,7 @@ public class Main {
                 catch(InterruptedException ignored)
                 {}
             }
+            //giving points to each player based how much higher their stat is than their opponents. These points are also weighed for more or less based on environment.
             //if the difference in a stat between the two constellations is greater than 5 the amount a win in that stat is worth double that of when its 5 or less.
             if (p1Stat[i] > p2Stat[i] && (p1Stat[i] - p2Stat[i]) > 5){
                 p1Wins = p1Wins + (2 * winWeight[i]);
@@ -578,7 +647,7 @@ public class Main {
             }
             try
             {
-                Thread.sleep(2000);
+                Thread.sleep(1500);
             }
             catch(InterruptedException ignored)
             {}
@@ -620,6 +689,7 @@ public class Main {
         nameChoice = possibleNames.get(iNameChoice);
         return nameChoice;
     }
+    //generates semi-random stats for the AI based on difficulty
     public static void aiStats (int[] finalAiStats, String levelDif){
         int levelNum = 0;
         if(levelDif.equalsIgnoreCase("Easy")){
