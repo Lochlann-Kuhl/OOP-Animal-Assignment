@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
     public static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
+        // defining the different variables within the code
         boolean playerCountChosen = false;
         boolean difficultyChosen = false;
         boolean p1ChoiceValid = false;
@@ -141,13 +142,10 @@ public class Main {
                     System.out.println("Your AI opponent is " + aiChoice);
                     if(aiChoice.equalsIgnoreCase("Capricornus")){
                         System.out.println("Lucky you, you get an easy opponent.");
-                    }
-                    try
-                    {
+                    } try {
                         Thread.sleep(1500);
+                    } catch(InterruptedException ignored)  {
                     }
-                    catch(InterruptedException ignored)
-                    {}
                     userStats(aiFinalStats, aiChoice);
                     aiStats(aiFinalStats, difficulty);
                     System.out.println("Generating environment...");
@@ -237,6 +235,7 @@ public class Main {
     }
     public static boolean characterValid (String[] constNames, String pC) {
         boolean isValid = false;
+        // switch that loops through each position in the array to check if the user's input is valid
         for (String constName : constNames) {
             if (pC.equalsIgnoreCase(constName)) {
                 isValid = true;
@@ -247,6 +246,7 @@ public class Main {
     }
     // creating a method that calls the hidden stats from each constellation and applies them if necessary
     public static void userStats (int[] stats, String userChoice) {
+        // has to be individual, as putting the names into an array and looping wouldn't call the method
         if (userChoice.equalsIgnoreCase("Aquila")) {
             Aquila player = new Aquila();
             stats[0] = player.Speed(stats[0]);
